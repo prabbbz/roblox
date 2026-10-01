@@ -1,7 +1,4 @@
-const USER_ID="9164965658";
-const API=`https://games.roblox.com/v2/users/${USER_ID}/games?accessFilter=Public&sortOrder=Asc&limit=50`;
-const THUMBS="https://thumbnails.roblox.com/v1/games/multiget/thumbnails";
-const ICONS="https://thumbnails.roblox.com/v1/games/icons";
+const API="/api/games";
 let games=[], filter="all";
 
 const $=s=>document.querySelector(s);
@@ -9,42 +6,35 @@ const fmt=n=>new Intl.NumberFormat("en-US",{notation:"compact",maximumFractionDi
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 
 async function fetchGames(){
-  $("#gameGrid").innerHTML=`<div class="loading"><span></span><p>LOADING ROBLOX EXPERIENCES...</p></div>`;
-  $("#featured").innerHTML="";
+  setLoading(true);
   try{
-    const res=await fetch(API,{cache:"no-store"});
-    if(!res.ok) throw new Error("Roblox API error");
-    const json=await res.json();
+    const res=await fetch(`${API}?t=${Date.now()}`,{cache:"no-store"});
+    const json=await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(json.detail||json.error||`HTTP ${res.status}`);
     games=(json.data||[]).filter(g=>g.isPlayable!==false);
-    await loadThumbs();
     render();
+    toast(`ROBLOX DATA LOADED • ${games.length} GAME${games.length===1?"":"S"}`);
   }catch(e){
     console.error(e);
-    $("#gameGrid").innerHTML=`<div class="loading"><p>ROBLOX DATA COULD NOT BE LOADED.<br><br>Refresh the page and try again.</p></div>`;
+    games=[];
+    $("#featured").innerHTML="";
+    $("#gameGrid").innerHTML=`<div class="loading error"><p>ROBLOX DATA COULD NOT BE LOADED.<br><small>${esc(e.message||"Unknown error")}</small><br><br><button class="retry" onclick="fetchGames()">TRY AGAIN ↻</button></p></div>`;
     toast("ROBLOX DATA GAGAL DIMUAT");
+  }finally{
+    setLoading(false);
   }
 }
 
-async function loadThumbs(){
-  const ids=games.map(g=>g.universeId).filter(Boolean);
-  if(!ids.length)return;
-  const chunks=[];
-  for(let i=0;i<ids.length;i+=50)chunks.push(ids.slice(i,i+50));
-  const maps={};
-  for(const chunk of chunks){
-    try{
-      const q=chunk.join(",");
-      const [thumbRes,iconRes]=await Promise.all([
-        fetch(`${THUMBS}?universeIds=${q}&countPerUniverse=1&defaults=true&size=768x432&format=Png&isCircular=false`),
-        fetch(`${ICONS}?universeIds=${q}&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false`)
-      ]);
-      const thumbs=thumbRes.ok?(await thumbRes.json()).data||[]:[];
-      const icons=iconRes.ok?(await iconRes.json()).data||[]:[];
-      thumbs.forEach(x=>maps[x.universeId]={thumb:x.thumbnails?.[0]?.imageUrl});
-      icons.forEach(x=>maps[x.targetId]=Object.assign(maps[x.targetId]||{},{icon:x.imageUrl}));
-    }catch{}
+function setLoading(on){
+  if(on){
+    $("#gameGrid").innerHTML=`<div class="loading"><span></span><p>LOADING ROBLOX EXPERIENCES...</p></div>`;
+    $("#featured").innerHTML="";
+    $("#refresh").disabled=true;
+    $("#refresh").classList.add("busy");
+  }else{
+    $("#refresh").disabled=false;
+    $("#refresh").classList.remove("busy");
   }
-  games.forEach(g=>{g.media=maps[g.universeId]||{}});
 }
 
 function render(){
@@ -67,17 +57,14 @@ function render(){
   $("#gameGrid").innerHTML=list.map(card).join("");
 }
 
-function imageFor(g){
-  return g.media?.thumb||g.media?.icon||"";
-}
-function gameUrl(g){
-  return `https://www.roblox.com/games/${g.rootPlaceId}`;
-}
+function imageFor(g){return g.media?.thumb||g.media?.icon||"";}
+function gameUrl(g){return `https://www.roblox.com/games/${g.rootPlaceId}`;}
 function card(g){
   const img=imageFor(g);
+  const bg=img?`style="background-image:url('${esc(img)}')"`:"";
   return `<article class="game-card">
     <a href="${gameUrl(g)}" target="_blank" rel="noopener">
-      <div class="thumb" style="background-image:url('${img}')"><span class="badge">${g.playing>0?"● LIVE":"ROBLOX EXPERIENCE"}</span></div>
+      <div class="thumb" ${bg}><span class="badge">${g.playing>0?"● LIVE":"ROBLOX EXPERIENCE"}</span></div>
     </a>
     <div class="game-body">
       <h3 title="${esc(g.name)}">${esc(g.name)}</h3>
@@ -89,16 +76,16 @@ function card(g){
 }
 function renderFeatured(g){
   const img=imageFor(g);
-  $("#featured").innerHTML=`<article class="featured-card" style="background-image:url('${img}')">
+  const bg=img?`style="background-image:url('${esc(img)}')"`:"";
+  $("#featured").innerHTML=`<article class="featured-card" ${bg}>
     <div class="featured-info"><span class="featured-badge">FEATURED EXPERIENCE</span><h3>${esc(g.name)}</h3>
     <p>${esc(g.description||"Explore this Roblox experience by ReyyYuzora.")}</p>
     <div class="featured-meta"><span>PLAYING <b>${fmt(g.playing)}</b></span><span>VISITS <b>${fmt(g.placeVisits)}</b></span></div></div>
     <a class="play" href="${gameUrl(g)}" target="_blank" rel="noopener">▶</a>
   </article>`;
-  const hero=$("#heroMedia");
-  if(img) hero.style.backgroundImage=`linear-gradient(90deg,#05070a 0%,rgba(5,7,10,.78) 40%,rgba(5,7,10,.3)),linear-gradient(0deg,#07090d,transparent 45%),url("${img}")`;
+  if(img) $("#heroMedia").style.backgroundImage=`linear-gradient(90deg,#05070a 0%,rgba(5,7,10,.78) 40%,rgba(5,7,10,.3)),linear-gradient(0deg,#07090d,transparent 45%),url("${img}")`;
 }
-function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove("show"),2000)}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove("show"),2500)}
 
 $("#search").addEventListener("input",render);
 $("#refresh").addEventListener("click",fetchGames);
