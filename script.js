@@ -5,7 +5,7 @@ const CONFIG = {
   userId: "9164965658",
   profile: "https://www.roblox.com/id/users/9164965658/profile",
   avatar: "https://tr.rbxcdn.com/30DAY-Avatar-B28BC904C94890749D2E74CC5E058125-Png/352/352/Avatar/Png/noFilter",
- discord: "https://discord.gg/pe3tb2dZCU",
+  discord: "https://discord.gg/pe3tb2dZCU",
 
   // true = daftar game diambil otomatis dari akun Roblox (lewat roproxy).
   // Kalau gagal / kamu mau atur sendiri, set false dan edit daftar di bawah.
@@ -31,6 +31,14 @@ document.querySelectorAll("[data-href]").forEach(e => {
 document.querySelectorAll("article[data-optional]").forEach(a => { if (!CONFIG.discord) a.remove(); });
 const ava = $("ava"); ava.src = CONFIG.avatar; ava.onerror = () => ava.style.display = "none";
 
+const ago = t => { const d = Math.floor((Date.now() - new Date(t)) / 864e5); return d < 1 ? "hari ini" : d < 30 ? d + " hari lalu" : d < 365 ? Math.floor(d / 30) + " bulan lalu" : Math.floor(d / 365) + " tahun lalu"; };
+const stat = g => `<div class="gstat" data-u="${esc(g.id || "")}">${[
+  g.playing != null && `<span class="meta on">${g.playing.toLocaleString("id-ID")} bermain</span>`,
+  g.like != null && `<span class="meta">${g.like}% suka</span>`,
+  g.visits && `<span class="meta"><svg class="i"><use href="#i-eye"/></svg>${Number(g.visits).toLocaleString("id-ID")} kunjungan</span>`,
+  g.updated && `<span class="meta">Update ${ago(g.updated)}</span>`
+].filter(Boolean).join("")}</div>`;
+
 let games = CONFIG.games;
 function render() {
   const list = $("gameList");
@@ -41,7 +49,7 @@ function render() {
         ${g.genre ? `<small>${esc(g.genre)}</small>` : ""}
         <h3>${esc(g.name)}</h3>
         <p>${esc((g.desc || "").slice(0, 140))}${(g.desc || "").length > 140 ? "…" : ""}</p>
-        ${g.visits ? `<span class="meta"><svg class="i"><use href="#i-eye"/></svg>${Number(g.visits).toLocaleString("id-ID")} kunjungan</span>` : ""}
+        ${stat(g)}
         <a class="btn sm" href="${esc(g.url)}" target="_blank" rel="noopener"><svg class="i f"><use href="#i-play"/></svg>Mainkan</a>
       </div>
     </article>`).join("") : `<p class="empty">Belum ada game yang ditampilkan.</p>`;
@@ -64,11 +72,37 @@ async function loadGames() {
       const t = await (await fetch(`https://thumbnails.roproxy.com/v1/games/icons?universeIds=${d.map(g => g.id).join(",")}&size=256x256&format=Png&isCircular=false`)).json();
       (t.data || []).forEach(x => icons[x.targetId] = x.imageUrl);
     } catch {}
-    games = d.map(g => ({ name: g.name, desc: g.description, url: "https://www.roblox.com/games/" + g.rootPlace.id, visits: g.placeVisits, img: icons[g.id] || "" }));
-    render();
+    games = d.map(g => ({ name: g.name, desc: g.description, url: "https://www.roblox.com/games/" + g.rootPlace.id, visits: g.placeVisits, updated: g.updated, id: g.id, img: icons[g.id] || "" }));
+    render(); loadLive(); setInterval(loadLive, 60000);
   } catch { /* gagal: tetap pakai daftar manual */ }
 }
 loadGames();
+
+// Statistik live: pemain aktif, kunjungan, dan persentase suka (diperbarui tiap 60 detik)
+async function loadLive() {
+  const ids = games.map(g => g.id).filter(Boolean).join(",");
+  if (!ids) return;
+  try {
+    const u = "https://games.roproxy.com/v1/games";
+    const [a, b] = await Promise.all([
+      fetch(`${u}?universeIds=${ids}`).then(r => r.json()),
+      fetch(`${u}/votes?universeIds=${ids}`).then(r => r.json()).catch(() => ({}))
+    ]);
+    const m = {}, v = {};
+    (a.data || []).forEach(x => m[x.id] = x);
+    (b.data || []).forEach(x => v[x.id] = x);
+    games.forEach(g => {
+      const x = m[g.id]; if (!x) return;
+      g.playing = x.playing; g.visits = x.visits ?? g.visits;
+      const t = v[g.id] ? v[g.id].upVotes + v[g.id].downVotes : 0;
+      if (t) g.like = Math.round(v[g.id].upVotes / t * 100);
+      const el = document.querySelector(`.gstat[data-u="${g.id}"]`); if (el) el.outerHTML = stat(g);
+    });
+    $("stLive").textContent = games.reduce((s, g) => s + (g.playing || 0), 0).toLocaleString("id-ID");
+    $("stLiveWrap").hidden = false;
+    $("stVisits").textContent = games.reduce((s, g) => s + (Number(g.visits) || 0), 0).toLocaleString("id-ID");
+  } catch { /* gagal: statistik live disembunyikan */ }
+}
 
 $("burger").onclick = () => $("menu").classList.toggle("open");
 const links = [...$("menu").querySelectorAll("a")];
