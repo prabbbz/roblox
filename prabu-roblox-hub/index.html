@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07090d">
+  <meta name="description" content="PRABU ROBLOX HUB — koleksi game Roblox ReyyYuzora.">
+  <title>PRABU ROBLOX HUB — Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="ambient a1"></div><div class="ambient a2"></div>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#home">
+      <span class="logo">P</span>
+      <span>PRABU <small>ROBLOX HUB</small></span>
+    </a>
+    <nav>
+      <a class="active" href="#home">HOME</a>
+      <a href="#games">GAMES</a>
+      <a href="#about">CREATOR</a>
+    </nav>
+    <a class="profile-btn" href="https://www.roblox.com/users/9164965658/profile" target="_blank">ROBLOX PROFILE ↗</a>
+    <button class="menu" id="menu"><i></i><i></i></button>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#home">HOME</a><a href="#games">GAMES</a><a href="#about">CREATOR</a>
+    <a href="https://www.roblox.com/users/9164965658/profile" target="_blank">ROBLOX PROFILE ↗</a>
+  </div>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-media" id="heroMedia"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <div class="eyebrow"><span></span> OFFICIAL ROBLOX GAME HUB</div>
+        <h1>PLAY.<br><em>CREATE.</em><br>REPEAT.</h1>
+        <p>Kumpulan game Roblox buatan <strong>ReyyYuzora</strong>. Pilih game, lihat detailnya, lalu langsung masuk ke Roblox.</p>
+        <div class="hero-actions">
+          <a class="primary" href="#games">EXPLORE GAMES <b>↓</b></a>
+          <a class="ghost" href="https://www.roblox.com/users/9164965658/profile" target="_blank">CREATOR PROFILE ↗</a>
+        </div>
+        <div class="hero-counts">
+          <div><b id="heroGameCount">—</b><small>PUBLIC GAMES</small></div>
+          <div class="sep"></div>
+          <div><b id="heroVisits">—</b><small>TOTAL VISITS</small></div>
+          <div class="sep"></div>
+          <div><b id="heroPlaying">—</b><small>PLAYING NOW</small></div>
+        </div>
+      </div>
+      <div class="hero-foot"><span>REYY YUZORA / 9164965658</span><span>SCROLL TO EXPLORE ↓</span></div>
+    </section>
+
+    <section class="statsbar">
+      <div><span class="live"></span><b>LIVE CATALOG</b><small>DATA FROM ROBLOX</small></div>
+      <div><b id="gameCount">—</b><small>PUBLIC EXPERIENCES</small></div>
+      <div><b id="totalVisits">—</b><small>TOTAL VISITS</small></div>
+      <div><b id="totalPlaying">—</b><small>PLAYING NOW</small></div>
+      <div class="updated">AUTO REFRESH <b>ON</b></div>
+    </section>
+
+    <section class="games-section" id="games">
+      <div class="section-head">
+        <div>
+          <span class="label">01 — GAME LIBRARY</span>
+          <h2>CHOOSE YOUR<br><em>GAME.</em></h2>
+        </div>
+        <div class="head-copy">Daftar di bawah mengambil pengalaman publik dari akun Roblox creator secara otomatis.</div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search"><span>⌕</span><input id="search" placeholder="Search games..." autocomplete="off"></div>
+        <div class="filters" id="filters">
+          <button class="selected" data-filter="all">ALL</button>
+          <button data-filter="popular">POPULAR</button>
+          <button data-filter="playing">PLAYING NOW</button>
+        </div>
+        <button class="refresh" id="refresh">↻ REFRESH</button>
+      </div>
+
+      <div class="featured" id="featured"></div>
+      <div class="grid" id="gameGrid">
+        <div class="loading"><span></span><p>LOADING ROBLOX EXPERIENCES...</p></div>
+      </div>
+      <div class="empty" id="empty" hidden>
+        <strong>NO GAME FOUND</strong>
+        <span>Coba kata kunci lain.</span>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-inner">
+        <div class="about-avatar">P</div>
+        <div>
+          <span class="label">02 — CREATOR</span>
+          <h2>REYY<span>YUZORA</span></h2>
+          <p>Official game collection dari creator Roblox. Semua game yang tersedia secara publik akan tampil otomatis di website ini.</p>
+        </div>
+        <a class="primary" href="https://www.roblox.com/users/9164965658/profile" target="_blank">OPEN ROBLOX PROFILE ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand"><span class="logo">P</span><span>PRABU <small>ROBLOX HUB</small></span></div>
+    <span>© 2026 PRABU ROBLOX HUB</span>
+    <a href="#home">BACK TO TOP ↑</a>
+  </footer>
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
