@@ -8,7 +8,7 @@ const CONFIG = {
   discord: "https://discord.gg/pe3tb2dZCU",
 
   // Alamat web MainYuk (mis. "https://nama-mainyuk.vercel.app/"). Kosong = tombol tampil "Segera".
-  mainyuk: "",
+  mainyuk: "https://mbg-kiw-kiw.vercel.app/",
 
   // true = daftar game diambil otomatis dari akun Roblox (lewat roproxy).
   // Kalau gagal / kamu mau atur sendiri, set false dan edit daftar di bawah.
