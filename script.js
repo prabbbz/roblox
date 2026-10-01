@@ -126,7 +126,7 @@ const BIO = {
     { t: "TikTok", s: "Cuplikan gameplay & pengumuman", u: "https://www.tiktok.com/@sueprabu_21?is_from_webapp=1&sender_device=pc", i: "tiktok" },
     { t: "YouTube", s: "Video dan trailer game", u: "", i: "youtube" },
     { t: "Instagram", s: "Foto dan cerita sehari-hari", u: "", i: "instagram" },
-    { t: "WhatsApp", s: "Chat langsung untuk kerja sama", u: "wa.me/6287781781230", i: "whatsapp" }
+    { t: "WhatsApp", s: "Chat langsung untuk kerja sama", u: "https://wa.me/6287781781230", i: "whatsapp" }
   ]
 };
 const FILL = ["roblox", "discord", "tiktok", "youtube"];
