@@ -31,12 +31,17 @@ document.querySelectorAll("[data-href]").forEach(e => {
 document.querySelectorAll("article[data-optional]").forEach(a => { if (!CONFIG.discord) a.remove(); });
 const ava = $("ava"); ava.src = CONFIG.avatar; ava.onerror = () => ava.style.display = "none";
 
-const ago = t => { const d = Math.floor((Date.now() - new Date(t)) / 864e5); return d < 1 ? "hari ini" : d < 30 ? d + " hari lalu" : d < 365 ? Math.floor(d / 30) + " bulan lalu" : Math.floor(d / 365) + " tahun lalu"; };
+// ===== Bahasa (ID/EN) =====
+const EN = {"Tentang": "About", "Kontak": "Contact", "Profil Roblox": "Roblox Profile", "Lihat Game": "View Games", "Kumpulan game Roblox buatan sendiri. Pilih game favoritmu, klik Mainkan, dan langsung masuk lewat Roblox.": "Roblox games I built myself. Pick your favorite, hit Play, and jump in through Roblox.", "Game": "Games", "Total Kunjungan": "Total Visits", "Sedang Main": "Playing Now", "Gratis Dimainkan": "Free to Play", "Developer game Roblox · @": "Roblox game developer · @", "Buka Profil": "Open Profile", "Game Buatanku": "My Games", "DAFTAR GAME": "GAME LIST", "Semua game Roblox yang sudah kubuat. Klik Mainkan untuk membukanya di Roblox.": "All the Roblox games I've made. Click Play to open them on Roblox.", "Memuat game…": "Loading games…", "KENAPA MAIN?": "WHY PLAY?", "Game dibuat di Roblox Studio dan bisa langsung dimainkan tanpa instalasi tambahan selain aplikasi Roblox.": "Games are built in Roblox Studio and play instantly, with nothing to install besides the Roblox app.", "Mainkan Langsung": "Play Instantly", "Satu klik dari website ini membuka game di aplikasi Roblox atau browser.": "One click from this site opens the game in the Roblox app or your browser.", "Banyak Perangkat": "Any Device", "Roblox tersedia di HP, PC, dan konsol, jadi kamu bisa bermain dari perangkat apa saja.": "Roblox runs on mobile, PC, and console, so you can play on whatever you have.", "Saran Diterima": "Feedback Welcome", "Punya ide atau menemukan bug? Kirim lewat Discord atau komentar di halaman game.": "Got an idea or found a bug? Send it via Discord or comment on the game page.", "TERHUBUNG DENGANKU": "GET IN TOUCH", "Ikuti profil Roblox-ku agar tidak ketinggalan game baru.": "Follow my Roblox profile so you never miss a new game.", "PROFIL ROBLOX": "ROBLOX PROFILE", "Lihat semua game, tambah teman, dan ikuti akun Roblox-ku.": "See all my games, add me as a friend, and follow my Roblox account.", "Komunitas": "Community", "SERVER DISCORD": "DISCORD SERVER", "Ngobrol dengan pemain lain, laporkan bug, dan dapatkan info update game.": "Chat with other players, report bugs, and get game update news.", "Kumpulan game Roblox buatan komunitas Indonesia.": "Roblox games from the Indonesian community.", ". Situs ini tidak berafiliasi dengan Roblox Corporation. Roblox adalah merek dagang Roblox Corporation.": ". This site is not affiliated with Roblox Corporation. Roblox is a trademark of Roblox Corporation.", "Bagikan bio": "Share bio", "Tidak berafiliasi dengan Roblox Corporation atau Discord Inc.": "Not affiliated with Roblox Corporation or Discord Inc.", "Developer game Roblox. Mainkan game buatanku dan gabung komunitasnya!": "Roblox game developer. Play my games and join the community!", "Lihat semua game buatanku": "See all my games", "Website Game Roblox": "Roblox Games Website", "Daftar lengkap game & info update": "Full game list & update info", "Gabung komunitas & dapat info update": "Join the community & get updates", "Cuplikan gameplay & pengumuman": "Gameplay clips & announcements", "Video dan trailer game": "Game videos & trailers", "Foto dan cerita sehari-hari": "Photos & daily stories", "Chat langsung untuk kerja sama": "Chat directly for collaborations", "Segera": "Soon", "Mainkan": "Play", "Belum ada game yang ditampilkan.": "No games to show yet.", "bermain": "playing", "suka": "liked", "kunjungan": "visits", "Update": "Updated", "hari ini": "today", "hari": "day", "bulan": "month", "tahun": "year", "Link bio disalin": "Bio link copied", "Salin dari address bar ya": "Copy it from the address bar"};
+let lang = "id";
+try { lang = localStorage.getItem("lang") || ((navigator.language || "id").startsWith("id") ? "id" : "en"); } catch {}
+const T = k => (lang === "en" && EN[k]) || k;
+const ago = t => { const d = Math.floor((Date.now() - new Date(t)) / 864e5); if (d < 1) return T("hari ini"); const n = d < 30 ? d : d < 365 ? Math.floor(d / 30) : Math.floor(d / 365), u = d < 30 ? "hari" : d < 365 ? "bulan" : "tahun"; return lang === "en" ? `${n} ${EN[u]}${n > 1 ? "s" : ""} ago` : `${n} ${u} lalu`; };
 const stat = g => `<div class="gstat" data-u="${esc(g.id || "")}">${[
-  g.playing != null && `<span class="meta on">${g.playing.toLocaleString("id-ID")} bermain</span>`,
-  g.like != null && `<span class="meta">${g.like}% suka</span>`,
-  g.visits && `<span class="meta"><svg class="i"><use href="#i-eye"/></svg>${Number(g.visits).toLocaleString("id-ID")} kunjungan</span>`,
-  g.updated && `<span class="meta">Update ${ago(g.updated)}</span>`
+  g.playing != null && `<span class="meta on">${g.playing.toLocaleString("id-ID")} ${T("bermain")}</span>`,
+  g.like != null && `<span class="meta">${g.like}% ${T("suka")}</span>`,
+  g.visits && `<span class="meta"><svg class="i"><use href="#i-eye"/></svg>${Number(g.visits).toLocaleString("id-ID")} ${T("kunjungan")}</span>`,
+  g.updated && `<span class="meta">${T("Update")} ${ago(g.updated)}</span>`
 ].filter(Boolean).join("")}</div>`;
 
 let games = CONFIG.games;
@@ -50,9 +55,9 @@ function render() {
         <h3>${esc(g.name)}</h3>
         <p>${esc((g.desc || "").slice(0, 140))}${(g.desc || "").length > 140 ? "…" : ""}</p>
         ${stat(g)}
-        <a class="btn sm" href="${esc(g.url)}" target="_blank" rel="noopener"><svg class="i f"><use href="#i-play"/></svg>Mainkan</a>
+        <a class="btn sm" href="${esc(g.url)}" target="_blank" rel="noopener"><svg class="i f"><use href="#i-play"/></svg>${T("Mainkan")}</a>
       </div>
-    </article>`).join("") : `<p class="empty">Belum ada game yang ditampilkan.</p>`;
+    </article>`).join("") : `<p class="empty">${T("Belum ada game yang ditampilkan.")}</p>`;
   const total = games.reduce((a, g) => a + (Number(g.visits) || 0), 0);
   $("stGames").textContent = games.length;
   $("stVisits").textContent = total.toLocaleString("id-ID");
@@ -204,6 +209,39 @@ addEventListener("hashchange", () => { if (location.hash === "#bio") openBio(); 
 $("bShare").onclick = async () => {
   const url = location.href.split("#")[0] + "#bio";
   try { if (navigator.share) { await navigator.share({ title: CONFIG.name, url }); return; } } catch { return; }
-  try { await navigator.clipboard.writeText(url); bioMsg("Link bio disalin"); } catch { bioMsg("Salin dari address bar ya"); }
+  try { await navigator.clipboard.writeText(url); bioMsg(T("Link bio disalin")); } catch { bioMsg(T("Salin dari address bar ya")); }
 };
 if (location.hash === "#bio") openBio();
+
+
+// ===== Tema terang/gelap, bahasa, widget Discord =====
+const root = document.documentElement, tbtn = $("themeBtn");
+function applyTheme(t) {
+  root.dataset.theme = t; tbtn.textContent = t === "light" ? "☾" : "☀";
+  tbtn.setAttribute("aria-label", t === "light" ? "Dark mode" : "Light mode");
+  document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#f5f6fb" : "#07080c";
+}
+applyTheme(root.dataset.theme || "dark");
+tbtn.onclick = () => { const t = root.dataset.theme === "light" ? "dark" : "light"; applyTheme(t); try { localStorage.setItem("theme", t); } catch {} };
+
+function applyLang() {
+  root.lang = lang;
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n; n = w.nextNode();) {
+    const o = n._o ?? n.nodeValue, k = o.trim();
+    if (EN[k]) { n._o = o; n.nodeValue = lang === "en" ? o.replace(k, () => EN[k]) : o; }
+  }
+  document.title = lang === "en" ? "ReyyYuzora — Roblox Games" : "ReyyYuzora — Game Roblox";
+  document.querySelector('meta[name="description"]').content = lang === "en" ? "Roblox games made by ReyyYuzora. Play them right on Roblox." : "Kumpulan game Roblox buatan ReyyYuzora. Mainkan langsung di Roblox.";
+  $("langBtn").textContent = lang === "en" ? "ID" : "EN";
+}
+$("langBtn").onclick = () => { lang = lang === "en" ? "id" : "en"; try { localStorage.setItem("lang", lang); } catch {} render(); applyLang(); };
+applyLang();
+
+const dw = $("dw");
+if (dw && CONFIG.discord) fetch(`https://discord.com/api/v10/invites/${CONFIG.discord.split("/").pop().split("?")[0]}?with_counts=true`)
+  .then(r => r.json()).then(d => {
+    if (!d.approximate_member_count) return;
+    dw.innerHTML = `<span><i></i><b>${(d.approximate_presence_count ?? 0).toLocaleString("id-ID")}</b> online</span><span><b>${d.approximate_member_count.toLocaleString("id-ID")}</b> member</span>`;
+    dw.hidden = false;
+  }).catch(() => {});

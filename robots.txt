@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://roblox-prabbbz.vercel.app/sitemap.xml
