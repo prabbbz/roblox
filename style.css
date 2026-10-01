@@ -177,3 +177,27 @@ h2::after{content:"";display:block;width:64px;height:3px;margin:16px auto 0;bord
 .card.rv{transition:opacity .8s var(--cur) var(--d,0s),translate .8s var(--cur) var(--d,0s),transform .3s,border-color .3s,box-shadow .3s}
 @media(max-width:900px){#menu{top:calc(100% + 10px);border-radius:22px;border:1px solid var(--bd)}}
 @media(max-width:620px){.nav{top:8px;padding:8px 10px 8px 18px}.tag{letter-spacing:.3em}.ipbox{flex-direction:column;text-align:center}.ipbox>div{text-align:center}}
+/* ===== IKON ===== */
+[hidden]{display:none!important}
+.i{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.2em;flex:none}
+.i.f{fill:currentColor;stroke-width:1}
+.btn .i{margin-right:8px}.btn .i:last-child{margin:0 0 0 8px}
+#menu a .i{margin-right:7px;opacity:.75}#menu a.on .i,#menu a:hover .i{opacity:1;color:var(--pk)}
+.logo{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--grad);color:#14060c;box-shadow:0 0 22px rgba(255,61,139,.5)}
+.logo .i{width:23px;height:23px;stroke-width:2.2}
+.eyebrow .i{margin-right:8px;vertical-align:-.25em}
+.pills span{display:inline-flex;align-items:center;gap:8px}.pills .i{color:var(--pk)}
+.cover .i.big{position:relative;width:58px;height:58px;stroke-width:1.3;color:rgba(255,255,255,.85);filter:drop-shadow(0 0 14px var(--pk))}
+.meta::before,.gcard .btn::before{content:none}
+.meta .i{color:var(--cy);width:1.05em;height:1.05em}
+.com .ic .i,.ic .i{width:24px;height:24px;stroke:#fff}
+.soc{display:flex;gap:12px;justify-content:center;margin:20px 0 6px}
+.soc a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--tx);transition:.25s}
+.soc a:hover{background:var(--grad);color:#14060c;transform:translateY(-4px);box-shadow:0 8px 24px rgba(255,61,139,.5)}
+.soc .i{width:21px;height:21px}
+/* ===== ikon brand Discord & Roblox ===== */
+.i.b{fill:currentColor;stroke:none}
+.ic .i.b{fill:#fff;stroke:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn .i,.btn .i:last-child{margin:0}
+.soc a[href*="discord"]:hover,.soc a:hover{color:#14060c}
