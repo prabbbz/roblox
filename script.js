@@ -123,10 +123,10 @@ const BIO = {
     { t: "Profil Roblox", s: "Lihat semua game buatanku", u: CONFIG.profile, i: "roblox", featured: true },
     { t: "Website Game Roblox", s: "Daftar lengkap game & info update", u: location.href.split("#")[0], i: "pad", same: true },
     { t: "Discord", s: "Gabung komunitas & dapat info update", u: CONFIG.discord, i: "discord" },
-    { t: "TikTok", s: "Cuplikan gameplay & pengumuman", u: "", i: "tiktok" },
+    { t: "TikTok", s: "Cuplikan gameplay & pengumuman", u: "https://www.tiktok.com/@sueprabu_21?is_from_webapp=1&sender_device=pc", i: "tiktok" },
     { t: "YouTube", s: "Video dan trailer game", u: "", i: "youtube" },
     { t: "Instagram", s: "Foto dan cerita sehari-hari", u: "", i: "instagram" },
-    { t: "WhatsApp", s: "Chat langsung untuk kerja sama", u: "", i: "whatsapp" }
+    { t: "WhatsApp", s: "Chat langsung untuk kerja sama", u: "wa.me/6287781781230", i: "whatsapp" }
   ]
 };
 const FILL = ["roblox", "discord", "tiktok", "youtube"];
