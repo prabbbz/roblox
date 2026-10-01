@@ -219,3 +219,7 @@ h2::after{content:"";display:block;width:64px;height:3px;margin:16px auto 0;bord
 .bio-ov:not(.open) .prof>*,.bio-ov:not(.open) .ring,.bio-ov:not(.open) .bname,.bio-ov:not(.open) .lk{animation:none}
 @media(max-width:420px){.bio-ov .bname{font-size:36px}}
 .toast{z-index:200}
+
+/* statistik live di kartu game */
+.gstat{display:flex;flex-wrap:wrap;gap:6px 14px}.gstat:empty{display:none}
+.meta.on{color:#2cff8a}.meta.on::before{content:"";width:8px;height:8px;border-radius:50%;background:#2cff8a;box-shadow:0 0 8px #2cff8a}
