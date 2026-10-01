@@ -5,7 +5,7 @@ const CONFIG = {
   userId: "9164965658",
   profile: "https://www.roblox.com/id/users/9164965658/profile",
   avatar: "https://tr.rbxcdn.com/30DAY-Avatar-B28BC904C94890749D2E74CC5E058125-Png/352/352/Avatar/Png/noFilter",
-  discord: "https://discord.gg/pe3tb2dZCU", // isi link Discord, kosongkan untuk menyembunyikan
+  discord: "https://discord.gg/pe3tb2dZCU",
 
   // true = daftar game diambil otomatis dari akun Roblox (lewat roproxy).
   // Kalau gagal / kamu mau atur sendiri, set false dan edit daftar di bawah.
@@ -80,3 +80,36 @@ function onScroll() {
   links.forEach((a, n) => a.classList.toggle("on", n === i));
 }
 addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+// ===== LUXE: efek interaktif =====
+const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .12 });
+document.querySelectorAll(".sec .eyebrow, .sec h2, .sec .sub, .sec .card:not(.gcard)").forEach((e, i) => { e.classList.add("rv"); io.observe(e); });
+
+function countUp(el) {
+  const t = parseInt(el.textContent.replace(/\D/g, "")) || 0; let s = null;
+  const f = ts => { s ??= ts; const p = Math.min((ts - s) / 1200, 1); el.textContent = Math.round(t * (1 - Math.pow(1 - p, 3))).toLocaleString("id-ID"); if (p < 1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
+}
+function afterRender() {
+  document.querySelectorAll(".gcard").forEach((c, i) => { c.classList.add("rv"); c.style.setProperty("--d", (i % 4) * .08 + "s"); io.observe(c); });
+  const names = games.map(g => `<span>${esc(g.name)}</span>`).join("").repeat(6);
+  $("mq").innerHTML = names;
+  countUp($("stGames")); countUp($("stVisits"));
+}
+const _render = render; render = function () { _render(); afterRender(); };
+afterRender();
+
+const glow = $("glow"), bar = $("bar");
+document.addEventListener("pointermove", e => {
+  glow.style.setProperty("--mx", e.clientX + "px"); glow.style.setProperty("--my", e.clientY + "px");
+  const c = e.target.closest && e.target.closest(".card"); if (!c) return;
+  const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  c.style.setProperty("--x", x + "px"); c.style.setProperty("--y", y + "px");
+  if (c.classList.contains("gcard") && e.pointerType === "mouse") {
+    c.style.setProperty("--rx", (.5 - y / r.height) * 8 + "deg"); c.style.setProperty("--ry", (x / r.width - .5) * 10 + "deg");
+  }
+});
+document.addEventListener("pointerleave", e => {
+  if (e.target.classList && e.target.classList.contains("gcard")) { e.target.style.setProperty("--rx", "0deg"); e.target.style.setProperty("--ry", "0deg"); }
+}, true);
+addEventListener("scroll", () => { bar.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)})`; }, { passive: true });
