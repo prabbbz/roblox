@@ -4,90 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07080c">
-<meta name="description" content="PRABU ROBLOX — koleksi game Roblox ReyyYuzora.">
-<title>PRABU ROBLOX — Game Hub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="description" content="Kumpulan game Roblox buatan ReyyYuzora. Mainkan langsung di Roblox.">
+<title>ReyyYuzora — Game Roblox</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="site-bg"></div>
 <header class="nav" id="nav">
-  <a class="brand" href="#hero"><span class="logo">P</span><span>PRABU<small>ROBLOX</small></span></a>
-  <nav id="menu">
-    <a href="#hero">Home</a><a href="#games">Games</a><a href="#featured">Featured</a><a href="#creator">Creator</a>
-  </nav>
-  <div class="nav-r"><span class="ver">REYY YUZORA</span><a class="btn sm" href="https://www.roblox.com/users/9164965658/profile" target="_blank" rel="noopener">Roblox ↗</a><button id="burger" aria-label="Menu">☰</button></div>
+  <a class="brand" href="#hero"><span><span data-text="name"></span><small>ROBLOX CREATOR</small></span></a>
+  <nav id="menu"><a href="#hero">Home</a><a href="#games">Games</a><a href="#about">Tentang</a><a href="#contact">Kontak</a></nav>
+  <div class="nav-r"><a class="btn sm" data-href="profile" target="_blank" rel="noopener">Profil Roblox</a><button id="burger" aria-label="Menu">☰</button></div>
 </header>
 
 <section class="hero" id="hero">
-  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-bg"></div>
   <div class="wrap hero-in">
-    <p class="eyebrow"><span></span> OFFICIAL ROBLOX GAME HUB</p>
-    <h1>PLAY.<br><em>CREATE.</em><br>REPEAT.</h1>
-    <p class="tag">REYY YUZORA / 9164965658</p>
-    <p class="lead">Kumpulan game Roblox buatan <b>ReyyYuzora</b>. Pilih game, lihat detailnya, lalu langsung masuk ke experience.</p>
+    <h1 data-text="nameUpper"></h1>
+    <p class="tag">Build • Script • Play</p>
+    <p class="lead">Kumpulan game Roblox buatan sendiri. Pilih game favoritmu, klik Mainkan, dan langsung masuk lewat Roblox.</p>
     <div class="cta">
-      <a class="btn" href="#games">EXPLORE GAMES</a>
-      <a class="btn ghost" href="https://www.roblox.com/users/9164965658/profile" target="_blank" rel="noopener">ROBLOX PROFILE ↗</a>
+      <a class="btn" href="#games">Lihat Game</a>
+      <a class="btn ghost" data-href="profile" target="_blank" rel="noopener">Profil Roblox</a>
+      <a class="btn ghost" data-href="discord" data-optional target="_blank" rel="noopener">Discord</a>
     </div>
-    <div class="pills"><span><i class="dot"></i> Live Roblox Data</span><span>Public Experiences</span><span>Auto Refresh</span><span>Indonesia</span></div>
+    <div class="pills"><span><b id="stGames">0</b> Game</span><span id="stVisWrap" hidden><b id="stVisits">0</b> Total Kunjungan</span><span><i class="dot"></i>Gratis Dimainkan</span></div>
     <div class="ipbox">
-      <div><b>ROBLOX GAME COLLECTION</b><p>Daftar experience publik diambil otomatis dari profile creator.</p></div>
-      <code id="heroCount">—</code><button class="btn sm" id="copyProfile">Profile</button>
+      <img class="ava" id="ava" alt="Avatar Roblox">
+      <div><b data-text="name"></b><p>Developer game Roblox · @<span data-text="username"></span></p></div>
+      <a class="btn sm" data-href="profile" target="_blank" rel="noopener">Buka Profil</a>
     </div>
   </div>
 </section>
-
-<section class="statsbar">
-  <div><span class="dot"></span><b>LIVE CATALOG</b><small>ROBLOX DATA</small></div>
-  <div><b id="gameCount">—</b><small>PUBLIC GAMES</small></div>
-  <div><b id="totalVisits">—</b><small>TOTAL VISITS</small></div>
-  <div><b id="totalPlaying">—</b><small>PLAYING NOW</small></div>
-  <div class="updated">AUTO REFRESH <b>ON</b></div>
-</section>
-
-<section id="featured" class="sec"><div class="wrap">
-  <p class="eyebrow">Featured Experience</p><h2>EXPERIENCE <em>ROBLOX</em></h2>
-  <p class="sub">Game yang sedang paling ramai akan ditampilkan sebagai highlight.</p>
-  <div id="featuredCard"><div class="loading"><span></span><p>LOADING FEATURED GAME...</p></div></div>
-</div></section>
 
 <section id="games" class="sec"><div class="wrap">
-  <p class="eyebrow">Game Library</p><h2>CHOOSE YOUR <em>GAME</em></h2>
-  <p class="sub">Semua experience publik creator akan tampil otomatis di bawah ini.</p>
-
-  <div class="toolbar">
-    <div class="search"><span>⌕</span><input id="search" placeholder="Search games..." autocomplete="off"></div>
-    <div class="filters" id="filters">
-      <button class="selected" data-filter="all">ALL</button>
-      <button data-filter="popular">POPULAR</button>
-      <button data-filter="playing">PLAYING NOW</button>
-    </div>
-    <button class="refresh" id="refresh">↻ REFRESH</button>
-  </div>
-
-  <div class="grid g3" id="gameGrid"><div class="loading"><span></span><p>LOADING ROBLOX EXPERIENCES...</p></div></div>
-  <div class="empty" id="empty" hidden><strong>NO GAME FOUND</strong><span>Coba kata kunci lain.</span></div>
+  <p class="eyebrow">Game Buatanku</p><h2>DAFTAR GAME</h2>
+  <p class="sub">Semua game Roblox yang sudah kubuat. Klik Mainkan untuk membukanya di Roblox.</p>
+  <div class="games" id="gameList"><p class="empty">Memuat game…</p></div>
 </div></section>
 
-<section id="creator" class="sec"><div class="wrap">
-  <p class="eyebrow">Official Creator</p><h2>REYY <em>YUZORA</em></h2>
-  <p class="sub">Profile Roblox creator dengan ID 9164965658. Gunakan tombol di bawah untuk membuka profile dan melihat seluruh experience langsung di Roblox.</p>
-  <div class="creator-card">
-    <div class="avatar">P</div>
-    <div><small>ROBLOX CREATOR</small><h3>ReyyYuzora</h3><p>Game collection otomatis dari experience publik.</p></div>
-    <a class="btn" href="https://www.roblox.com/users/9164965658/profile" target="_blank" rel="noopener">OPEN PROFILE ↗</a>
+<section id="about" class="sec"><div class="wrap">
+  <p class="eyebrow">Tentang</p><h2>KENAPA MAIN?</h2>
+  <p class="sub">Game dibuat di Roblox Studio dan bisa langsung dimainkan tanpa instalasi tambahan selain aplikasi Roblox.</p>
+  <div class="grid g3">
+    <article class="card"><h3>Mainkan Langsung</h3><p>Satu klik dari website ini membuka game di aplikasi Roblox atau browser.</p></article>
+    <article class="card"><h3>Banyak Perangkat</h3><p>Roblox tersedia di HP, PC, dan konsol, jadi kamu bisa bermain dari perangkat apa saja.</p></article>
+    <article class="card"><h3>Saran Diterima</h3><p>Punya ide atau menemukan bug? Kirim lewat Discord atau komentar di halaman game.</p></article>
+  </div>
+</div></section>
+
+<section id="contact" class="sec"><div class="wrap">
+  <p class="eyebrow">Kontak</p><h2>TERHUBUNG DENGANKU</h2>
+  <p class="sub">Ikuti profil Roblox-ku agar tidak ketinggalan game baru.</p>
+  <div class="grid g2">
+    <article class="card com"><small>Roblox</small><h3>PROFIL ROBLOX</h3><p>Lihat semua game, tambah teman, dan ikuti akun Roblox-ku.</p><br><a class="btn" data-href="profile" target="_blank" rel="noopener">Buka Profil</a></article>
+    <article class="card com" data-optional><small>Komunitas</small><h3>SERVER DISCORD</h3><p>Ngobrol dengan pemain lain, laporkan bug, dan dapatkan info update game.</p><br><a class="btn" data-href="discord" target="_blank" rel="noopener">Join Discord</a></article>
   </div>
 </div></section>
 
 <footer class="foot"><div class="wrap">
-  <div class="brand"><span class="logo">P</span><span>PRABU<small>ROBLOX</small></span></div>
-  <p>Official game hub untuk koleksi Roblox ReyyYuzora.</p>
-  <nav><a href="#hero">Home</a><a href="#games">Games</a><a href="#featured">Featured</a><a href="#creator">Creator</a></nav>
-  <small>© 2026 PRABU ROBLOX HUB · Data experience dari Roblox.</small>
+  <div class="brand"><span data-text="name"></span></div>
+  <p>Kumpulan game Roblox buatan komunitas Indonesia.</p>
+  <small>© 2026 <span data-text="name"></span>. Situs ini tidak berafiliasi dengan Roblox Corporation. Roblox adalah merek dagang Roblox Corporation.</small>
 </div></footer>
-<div class="toast" id="toast"></div>
 <script src="script.js"></script>
 </body>
 </html>
