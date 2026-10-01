@@ -5,7 +5,7 @@ const CONFIG = {
   userId: "9164965658",
   profile: "https://www.roblox.com/id/users/9164965658/profile",
   avatar: "https://tr.rbxcdn.com/30DAY-Avatar-B28BC904C94890749D2E74CC5E058125-Png/352/352/Avatar/Png/noFilter",
-  discord: "", // isi link Discord, kosongkan untuk menyembunyikan
+  discord: "https://discord.gg/pe3tb2dZCU", // isi link Discord, kosongkan untuk menyembunyikan
 
   // true = daftar game diambil otomatis dari akun Roblox (lewat roproxy).
   // Kalau gagal / kamu mau atur sendiri, set false dan edit daftar di bawah.
