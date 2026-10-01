@@ -159,65 +159,6 @@ addEventListener("scroll", () => { bar.style.transform = `scaleX(${scrollY / Mat
 
 // ===== BIO (link-in-bio) — panel yang muncul dari tombol "Bio" di navbar =====
 // Link dengan u kosong tampil redup + label "Segera". Isi u untuk mengaktifkan.
-const BIO = {
-  text: "Developer game Roblox. Mainkan game buatanku dan gabung komunitasnya!",
-  // icon: roblox | discord | tiktok | youtube | instagram | whatsapp | pad
-  links: [
-    { t: "Profil Roblox", s: "Lihat semua game buatanku", u: CONFIG.profile, i: "roblox", featured: true },
-    { t: "Website Game Roblox", s: "Daftar lengkap game & info update", u: location.href.split("#")[0], i: "pad", same: true },
-    { t: "MainYuk", s: "Game online gratis, langsung main", u: CONFIG.mainyuk, i: "pad" },
-    { t: "Discord", s: "Gabung komunitas & dapat info update", u: CONFIG.discord, i: "discord" },
-    { t: "TikTok", s: "Cuplikan gameplay & pengumuman", u: "https://www.tiktok.com/@sueprabu_21?is_from_webapp=1&sender_device=pc", i: "tiktok" },
-    { t: "YouTube", s: "Video dan trailer game", u: "", i: "youtube" },
-    { t: "Instagram", s: "Foto dan cerita sehari-hari", u: "", i: "instagram" },
-    { t: "WhatsApp", s: "Chat langsung untuk kerja sama", u: "https://wa.me/6287781781230", i: "whatsapp" }
-  ]
-};
-const FILL = ["roblox", "discord", "tiktok", "youtube"];
-const ic = n => `<svg class="i${FILL.includes(n) ? " b" : ""}"><use href="#i-${esc(n)}"/></svg>`;
-$("bName").textContent = CONFIG.name; $("bUser").textContent = CONFIG.username; $("bBio").textContent = BIO.text;
-const bAva = $("bAva"); bAva.src = CONFIG.avatar; bAva.onerror = () => bAva.style.visibility = "hidden";
-
-$("bLinks").innerHTML = BIO.links.map((l, n) => {
-  const inner = `<span class="lic">${ic(l.i)}</span><span class="lt"><b>${esc(l.t)}</b><small>${esc(l.s)}</small></span>` +
-    (l.u ? `<svg class="i arr"><use href="#i-arrow"/></svg>` : `<span class="soon">Segera</span>`);
-  const cls = "lk" + (l.featured ? " feat" : "") + (l.u ? "" : " off");
-  return l.u ? `<a class="${cls}" style="--n:${n}" href="${esc(l.u)}"${l.same ? ' data-close' : ' target="_blank" rel="noopener"'}>${inner}</a>`
-             : `<div class="${cls}" style="--n:${n}">${inner}</div>`;
-}).join("");
-const bioLive = BIO.links.filter(l => l.u && !l.featured && !l.same);
-$("bSoc").innerHTML = bioLive.map(l => `<a href="${esc(l.u)}" target="_blank" rel="noopener" aria-label="${esc(l.t)}">${ic(l.i)}</a>`).join("");
-$("bSoc").hidden = !bioLive.length;
-
-const bioEl = $("bio"), bioToast = $("toast");
-function bioMsg(m) { bioToast.textContent = m; bioToast.classList.add("on"); clearTimeout(bioMsg.t); bioMsg.t = setTimeout(() => bioToast.classList.remove("on"), 2200); }
-function openBio() {
-  $("menu").classList.remove("open");
-  bioEl.classList.add("open"); bioEl.setAttribute("aria-hidden", "false"); bioEl.scrollTop = 0;
-  document.body.style.overflow = "hidden";
-  history.replaceState(null, "", location.pathname + location.search + "#bio");
-  $("bioX").focus({ preventScroll: true });
-}
-function closeBio() {
-  bioEl.classList.remove("open"); bioEl.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-  if (location.hash === "#bio") history.replaceState(null, "", location.pathname + location.search);
-  $("bioBtn").focus({ preventScroll: true });
-}
-$("bioBtn").onclick = openBio;
-$("bioX").onclick = closeBio;
-bioEl.addEventListener("click", e => {
-  if (e.target === bioEl || e.target.classList.contains("bio-bg") || e.target.classList.contains("bio-card") || e.target.closest("[data-close]")) closeBio();
-});
-addEventListener("keydown", e => { if (e.key === "Escape" && bioEl.classList.contains("open")) closeBio(); });
-addEventListener("hashchange", () => { if (location.hash === "#bio") openBio(); else if (bioEl.classList.contains("open")) closeBio(); });
-$("bShare").onclick = async () => {
-  const url = location.href.split("#")[0] + "#bio";
-  try { if (navigator.share) { await navigator.share({ title: CONFIG.name, url }); return; } } catch { return; }
-  try { await navigator.clipboard.writeText(url); bioMsg(T("Link bio disalin")); } catch { bioMsg(T("Salin dari address bar ya")); }
-};
-if (location.hash === "#bio") openBio();
-
 
 // ===== Tema terang/gelap, bahasa, widget Discord =====
 const root = document.documentElement, tbtn = $("themeBtn");
