@@ -163,9 +163,9 @@ const BIO = {
   text: "Developer game Roblox. Mainkan game buatanku dan gabung komunitasnya!",
   // icon: roblox | discord | tiktok | youtube | instagram | whatsapp | pad
   links: [
-    { t: "Profil Roblox", s: "Lihat semua game buatanku", u: CONFIG.profile, i: "roblox", featured: true },
+    { t: "Profil Roblox", s: "Lihat semua game buatanku", u: CONFIG.profile, i: "roblox", featured: false },
     { t: "Website Game Roblox", s: "Daftar lengkap game & info update", u: location.href.split("#")[0], i: "pad", same: true },
-    { t: "MainYuk", s: "Game online gratis, langsung main", u: CONFIG.mainyuk, i: "pad" },
+    { t: "MainYuk", s: "Game online gratis, langsung main", u: CONFIG.mainyuk, i: "pad", same: true },
     { t: "Discord", s: "Gabung komunitas & dapat info update", u: CONFIG.discord, i: "discord" },
     { t: "TikTok", s: "Cuplikan gameplay & pengumuman", u: "https://www.tiktok.com/@sueprabu_21?is_from_webapp=1&sender_device=pc", i: "tiktok" },
     { t: "YouTube", s: "Video dan trailer game", u: "", i: "youtube" },
