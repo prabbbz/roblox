@@ -5,7 +5,7 @@ const CONFIG = {
   userId: "9164965658",
   profile: "https://www.roblox.com/id/users/9164965658/profile",
   avatar: "https://tr.rbxcdn.com/30DAY-Avatar-B28BC904C94890749D2E74CC5E058125-Png/352/352/Avatar/Png/noFilter",
-  discord: "https://discord.gg/pe3tb2dZCU",
+ discord: "https://discord.gg/pe3tb2dZCU",
 
   // true = daftar game diambil otomatis dari akun Roblox (lewat roproxy).
   // Kalau gagal / kamu mau atur sendiri, set false dan edit daftar di bawah.
@@ -36,13 +36,13 @@ function render() {
   const list = $("gameList");
   list.innerHTML = games.length ? games.map(g => `
     <article class="card gcard">
-      <div class="cover">🎮${g.img ? `<img src="${esc(g.img)}" alt="${esc(g.name)}" loading="lazy" onerror="this.remove()">` : ""}</div>
+      <div class="cover"><svg class="i big"><use href="#i-pad"/></svg>${g.img ? `<img src="${esc(g.img)}" alt="${esc(g.name)}" loading="lazy" onerror="this.remove()">` : ""}</div>
       <div class="gbody">
         ${g.genre ? `<small>${esc(g.genre)}</small>` : ""}
         <h3>${esc(g.name)}</h3>
         <p>${esc((g.desc || "").slice(0, 140))}${(g.desc || "").length > 140 ? "…" : ""}</p>
-        ${g.visits ? `<span class="meta">${Number(g.visits).toLocaleString("id-ID")} kunjungan</span>` : ""}
-        <a class="btn sm" href="${esc(g.url)}" target="_blank" rel="noopener">Mainkan</a>
+        ${g.visits ? `<span class="meta"><svg class="i"><use href="#i-eye"/></svg>${Number(g.visits).toLocaleString("id-ID")} kunjungan</span>` : ""}
+        <a class="btn sm" href="${esc(g.url)}" target="_blank" rel="noopener"><svg class="i f"><use href="#i-play"/></svg>Mainkan</a>
       </div>
     </article>`).join("") : `<p class="empty">Belum ada game yang ditampilkan.</p>`;
   const total = games.reduce((a, g) => a + (Number(g.visits) || 0), 0);
