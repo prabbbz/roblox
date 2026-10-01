@@ -1,118 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#07090d">
-  <meta name="description" content="PRABU ROBLOX HUB — koleksi game Roblox ReyyYuzora.">
-  <title>PRABU ROBLOX HUB — Games</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07080c">
+<meta name="description" content="PRABU ROBLOX — koleksi game Roblox ReyyYuzora.">
+<title>PRABU ROBLOX — Game Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="grain"></div>
-  <div class="ambient a1"></div><div class="ambient a2"></div>
+<div class="site-bg"></div>
+<header class="nav" id="nav">
+  <a class="brand" href="#hero"><span class="logo">P</span><span>PRABU<small>ROBLOX</small></span></a>
+  <nav id="menu">
+    <a href="#hero">Home</a><a href="#games">Games</a><a href="#featured">Featured</a><a href="#creator">Creator</a>
+  </nav>
+  <div class="nav-r"><span class="ver">REYY YUZORA</span><a class="btn sm" href="https://www.roblox.com/users/9164965658/profile" target="_blank" rel="noopener">Roblox ↗</a><button id="burger" aria-label="Menu">☰</button></div>
+</header>
 
-  <header class="topbar" id="topbar">
-    <a class="brand" href="#home">
-      <span class="logo">P</span>
-      <span>PRABU <small>ROBLOX HUB</small></span>
-    </a>
-    <nav>
-      <a class="active" href="#home">HOME</a>
-      <a href="#games">GAMES</a>
-      <a href="#about">CREATOR</a>
-    </nav>
-    <a class="profile-btn" href="https://www.roblox.com/users/9164965658/profile" target="_blank">ROBLOX PROFILE ↗</a>
-    <button class="menu" id="menu"><i></i><i></i></button>
-  </header>
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow"><span></span> OFFICIAL ROBLOX GAME HUB</p>
+    <h1>PLAY.<br><em>CREATE.</em><br>REPEAT.</h1>
+    <p class="tag">REYY YUZORA / 9164965658</p>
+    <p class="lead">Kumpulan game Roblox buatan <b>ReyyYuzora</b>. Pilih game, lihat detailnya, lalu langsung masuk ke experience.</p>
+    <div class="cta">
+      <a class="btn" href="#games">EXPLORE GAMES</a>
+      <a class="btn ghost" href="https://www.roblox.com/users/9164965658/profile" target="_blank" rel="noopener">ROBLOX PROFILE ↗</a>
+    </div>
+    <div class="pills"><span><i class="dot"></i> Live Roblox Data</span><span>Public Experiences</span><span>Auto Refresh</span><span>Indonesia</span></div>
+    <div class="ipbox">
+      <div><b>ROBLOX GAME COLLECTION</b><p>Daftar experience publik diambil otomatis dari profile creator.</p></div>
+      <code id="heroCount">—</code><button class="btn sm" id="copyProfile">Profile</button>
+    </div>
+  </div>
+</section>
 
-  <div class="mobile-nav" id="mobileNav">
-    <a href="#home">HOME</a><a href="#games">GAMES</a><a href="#about">CREATOR</a>
-    <a href="https://www.roblox.com/users/9164965658/profile" target="_blank">ROBLOX PROFILE ↗</a>
+<section class="statsbar">
+  <div><span class="dot"></span><b>LIVE CATALOG</b><small>ROBLOX DATA</small></div>
+  <div><b id="gameCount">—</b><small>PUBLIC GAMES</small></div>
+  <div><b id="totalVisits">—</b><small>TOTAL VISITS</small></div>
+  <div><b id="totalPlaying">—</b><small>PLAYING NOW</small></div>
+  <div class="updated">AUTO REFRESH <b>ON</b></div>
+</section>
+
+<section id="featured" class="sec"><div class="wrap">
+  <p class="eyebrow">Featured Experience</p><h2>EXPERIENCE <em>ROBLOX</em></h2>
+  <p class="sub">Game yang sedang paling ramai akan ditampilkan sebagai highlight.</p>
+  <div id="featuredCard"><div class="loading"><span></span><p>LOADING FEATURED GAME...</p></div></div>
+</div></section>
+
+<section id="games" class="sec"><div class="wrap">
+  <p class="eyebrow">Game Library</p><h2>CHOOSE YOUR <em>GAME</em></h2>
+  <p class="sub">Semua experience publik creator akan tampil otomatis di bawah ini.</p>
+
+  <div class="toolbar">
+    <div class="search"><span>⌕</span><input id="search" placeholder="Search games..." autocomplete="off"></div>
+    <div class="filters" id="filters">
+      <button class="selected" data-filter="all">ALL</button>
+      <button data-filter="popular">POPULAR</button>
+      <button data-filter="playing">PLAYING NOW</button>
+    </div>
+    <button class="refresh" id="refresh">↻ REFRESH</button>
   </div>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-media" id="heroMedia"></div>
-      <div class="hero-shade"></div>
-      <div class="hero-content">
-        <div class="eyebrow"><span></span> OFFICIAL ROBLOX GAME HUB</div>
-        <h1>PLAY.<br><em>CREATE.</em><br>REPEAT.</h1>
-        <p>Kumpulan game Roblox buatan <strong>ReyyYuzora</strong>. Pilih game, lihat detailnya, lalu langsung masuk ke Roblox.</p>
-        <div class="hero-actions">
-          <a class="primary" href="#games">EXPLORE GAMES <b>↓</b></a>
-          <a class="ghost" href="https://www.roblox.com/users/9164965658/profile" target="_blank">CREATOR PROFILE ↗</a>
-        </div>
-        <div class="hero-counts">
-          <div><b id="heroGameCount">—</b><small>PUBLIC GAMES</small></div>
-          <div class="sep"></div>
-          <div><b id="heroVisits">—</b><small>TOTAL VISITS</small></div>
-          <div class="sep"></div>
-          <div><b id="heroPlaying">—</b><small>PLAYING NOW</small></div>
-        </div>
-      </div>
-      <div class="hero-foot"><span>REYY YUZORA / 9164965658</span><span>SCROLL TO EXPLORE ↓</span></div>
-    </section>
+  <div class="grid g3" id="gameGrid"><div class="loading"><span></span><p>LOADING ROBLOX EXPERIENCES...</p></div></div>
+  <div class="empty" id="empty" hidden><strong>NO GAME FOUND</strong><span>Coba kata kunci lain.</span></div>
+</div></section>
 
-    <section class="statsbar">
-      <div><span class="live"></span><b>LIVE CATALOG</b><small>DATA FROM ROBLOX</small></div>
-      <div><b id="gameCount">—</b><small>PUBLIC EXPERIENCES</small></div>
-      <div><b id="totalVisits">—</b><small>TOTAL VISITS</small></div>
-      <div><b id="totalPlaying">—</b><small>PLAYING NOW</small></div>
-      <div class="updated">AUTO REFRESH <b>ON</b></div>
-    </section>
+<section id="creator" class="sec"><div class="wrap">
+  <p class="eyebrow">Official Creator</p><h2>REYY <em>YUZORA</em></h2>
+  <p class="sub">Profile Roblox creator dengan ID 9164965658. Gunakan tombol di bawah untuk membuka profile dan melihat seluruh experience langsung di Roblox.</p>
+  <div class="creator-card">
+    <div class="avatar">P</div>
+    <div><small>ROBLOX CREATOR</small><h3>ReyyYuzora</h3><p>Game collection otomatis dari experience publik.</p></div>
+    <a class="btn" href="https://www.roblox.com/users/9164965658/profile" target="_blank" rel="noopener">OPEN PROFILE ↗</a>
+  </div>
+</div></section>
 
-    <section class="games-section" id="games">
-      <div class="section-head">
-        <div>
-          <span class="label">01 — GAME LIBRARY</span>
-          <h2>CHOOSE YOUR<br><em>GAME.</em></h2>
-        </div>
-        <div class="head-copy">Daftar di bawah mengambil pengalaman publik dari akun Roblox creator secara otomatis.</div>
-      </div>
-
-      <div class="toolbar">
-        <div class="search"><span>⌕</span><input id="search" placeholder="Search games..." autocomplete="off"></div>
-        <div class="filters" id="filters">
-          <button class="selected" data-filter="all">ALL</button>
-          <button data-filter="popular">POPULAR</button>
-          <button data-filter="playing">PLAYING NOW</button>
-        </div>
-        <button class="refresh" id="refresh">↻ REFRESH</button>
-      </div>
-
-      <div class="featured" id="featured"></div>
-      <div class="grid" id="gameGrid">
-        <div class="loading"><span></span><p>LOADING ROBLOX EXPERIENCES...</p></div>
-      </div>
-      <div class="empty" id="empty" hidden>
-        <strong>NO GAME FOUND</strong>
-        <span>Coba kata kunci lain.</span>
-      </div>
-    </section>
-
-    <section class="about" id="about">
-      <div class="about-inner">
-        <div class="about-avatar">P</div>
-        <div>
-          <span class="label">02 — CREATOR</span>
-          <h2>REYY<span>YUZORA</span></h2>
-          <p>Official game collection dari creator Roblox. Semua game yang tersedia secara publik akan tampil otomatis di website ini.</p>
-        </div>
-        <a class="primary" href="https://www.roblox.com/users/9164965658/profile" target="_blank">OPEN ROBLOX PROFILE ↗</a>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="brand"><span class="logo">P</span><span>PRABU <small>ROBLOX HUB</small></span></div>
-    <span>© 2026 PRABU ROBLOX HUB</span>
-    <a href="#home">BACK TO TOP ↑</a>
-  </footer>
-  <div class="toast" id="toast"></div>
-  <script src="script.js"></script>
+<footer class="foot"><div class="wrap">
+  <div class="brand"><span class="logo">P</span><span>PRABU<small>ROBLOX</small></span></div>
+  <p>Official game hub untuk koleksi Roblox ReyyYuzora.</p>
+  <nav><a href="#hero">Home</a><a href="#games">Games</a><a href="#featured">Featured</a><a href="#creator">Creator</a></nav>
+  <small>© 2026 PRABU ROBLOX HUB · Data experience dari Roblox.</small>
+</div></footer>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
 </body>
 </html>
